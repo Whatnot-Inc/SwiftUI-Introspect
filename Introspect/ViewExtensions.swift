@@ -88,6 +88,15 @@ extension View {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
         }
     }
+
+    /// Finds a ancestor `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
+    public func introspectAncestorScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
+        if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
+            return introspect(selector: TargetViewSelector.siblingOfTypeOrAncestorWithFrame, customize: customize)
+        } else {
+            return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
+        }
+    }
     
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
